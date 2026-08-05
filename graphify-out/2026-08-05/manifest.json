@@ -1,14 +1,4 @@
 {
-  ".opencode/opencode.json": {
-    "mtime": 1785916863.236972,
-    "ast_hash": "e5f74d14a81702b55bdf53b33ec991d7",
-    "semantic_hash": ""
-  },
-  ".opencode/plugins/graphify.js": {
-    "mtime": 1785916843.249877,
-    "ast_hash": "3ea725724bc8ebe483c9f13d6aa1124f",
-    "semantic_hash": ""
-  },
   "backend/alembic/__init__.py": {
     "mtime": 1777191705.2290134,
     "ast_hash": "e381676ad43c744707b9b944b4d6426f",
@@ -575,8 +565,8 @@
     "semantic_hash": ""
   },
   "frontend/src/views/VideoPlayerView.vue": {
-    "mtime": 1781204194.1607776,
-    "ast_hash": "f22f282c53780ad484cb4b91c6dbaafd",
+    "mtime": 1785922752.7076294,
+    "ast_hash": "f6c36d7bdb5cb9f57132ac20237e0580",
     "semantic_hash": ""
   },
   "frontend/tailwind.config.js": {
@@ -659,53 +649,8 @@
     "ast_hash": "a4e7610436063b86bb98e00244e5db8c",
     "semantic_hash": ""
   },
-  ".opencode/skills/graphify/SKILL.md": {
-    "mtime": 1785916843.2473514,
-    "ast_hash": "a8188bdf35abb58e750eb1750272caf8",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/add-watch.md": {
-    "mtime": 1785916115.3304443,
-    "ast_hash": "d59d027fe449f06aa03905a01184e779",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/exports.md": {
-    "mtime": 1785916115.3354442,
-    "ast_hash": "9da2a2152e60a22f07f05fed5158f287",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/extraction-spec.md": {
-    "mtime": 1785916115.343444,
-    "ast_hash": "42fef56a01698118f7fd722acdadea34",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/github-and-merge.md": {
-    "mtime": 1785916115.3454442,
-    "ast_hash": "cde13df085e4c492aeb7ba298a996d0d",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/hooks.md": {
-    "mtime": 1785916115.3514442,
-    "ast_hash": "3f545db6ce646650bb9de588f5512a27",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/query.md": {
-    "mtime": 1785916115.3524442,
-    "ast_hash": "3c46f8ad006874260614ed8657d02307",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/transcribe.md": {
-    "mtime": 1785916115.3564441,
-    "ast_hash": "67b6a5fa6c0974e18f60db9f8932fbd8",
-    "semantic_hash": ""
-  },
-  ".opencode/skills/graphify/references/update.md": {
-    "mtime": 1785916115.3584442,
-    "ast_hash": "9378bd03d56baaf78bd738ab3848f142",
-    "semantic_hash": ""
-  },
   "AGENTS.md": {
-    "mtime": 1785916843.249158,
+    "mtime": 1785922752.7064722,
     "ast_hash": "bf237e8f6b9398cfbd6f0f03ce238481",
     "semantic_hash": ""
   },
@@ -797,6 +742,21 @@
   "requirements.md": {
     "mtime": 1781204194.1662781,
     "ast_hash": "bbd69aca9d849565f12d80822c472a59",
+    "semantic_hash": ""
+  },
+  "frontend/src/services/__tests__/streamChat.spec.ts": {
+    "mtime": 1785922710.7967086,
+    "ast_hash": "3e42fd6d9168d10e1a87ad86f09da7a3",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-08-05-chat-streaming-fix.md": {
+    "mtime": 1785922752.706735,
+    "ast_hash": "cf8504b819c9667d9bf89fb2751dea4f",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-08-05-chat-streaming-spec.md": {
+    "mtime": 1785922752.7069995,
+    "ast_hash": "d45533d9676a639b688540e7cf413eb3",
     "semantic_hash": ""
   }
 }

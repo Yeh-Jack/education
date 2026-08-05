@@ -110,6 +110,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+.devcontainer
 .env
 .env.local
 .env.development.local

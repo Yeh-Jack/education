@@ -1,16 +1,16 @@
 # Graph Report - speak  (2026-08-05)
 
 ## Corpus Check
-- 154 files · ~88,401 words
+- 146 files · ~78,956 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1919 nodes · 2764 edges · 141 communities (121 shown, 20 thin omitted)
+- 1937 nodes · 2782 edges · 155 communities (135 shown, 20 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 116 edges (avg confidence: 0.54)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0a98e991`
+- Built from commit: `0f85b939`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -18,7 +18,7 @@
 - Base
 - VideoService
 - DownloadService
-- ChunkingService
+- test_chunking_service.py
 - Design Specifications & Coding Guidelines
 - video_service.py
 - English Speaking Learning App - System Architecture
@@ -43,29 +43,29 @@
 - LLMService
 - get_log_level
 - API Endpoints
-- endpoints/chat.py
+- endpoints/stats.py
 - patch
 - video.service.ts
 - LLM Task Skill
 - endpoints/vocabulary.py
 - useI18n.ts
-- StudyProgress
-- VocabularyRepository
-- asyncio
+- ProgressRepository
+- MockVideo
+- TestCreateChunksEdgeCases
 - asyncio
 - Study Statistics Implementation Plan
 - Exam System Skill
 - main.py
 - StudyPlanRepository
 - SpeakingService
-- StatsService
+- StudyProgress
 - TestModuleLevelConstants
 - TestSettings
 - StudyPlanDisplay.vue
 - devDependencies
 - dependencies
 - endpoints/speaking.py
-- VideoRepository
+- .get_with_chunks
 - logging.py
 - ChunkRepository
 - SQLite3 Migration Implementation Plan
@@ -77,11 +77,11 @@
 - Phase 2: Video Processing Pipeline Implementation Plan
 - English Speaking Learning App
 - setup_logging
-- schemas/vocabulary.py
+- SubtitleService
 - VocabularyCard.vue
 - Guidelines
-- chat
-- Vocabulary
+- endpoints/chat.py
+- BaseRepository
 - test_speaking_service.py
 - schemas/transcript.py
 - TestGenerateFeedback
@@ -90,7 +90,7 @@
 - English Speaking Learning App - Technical Specification
 - session.py
 - ChatService
-- BaseButton.vue
+- BaseInput.vue
 - graphify reference: extra exports and benchmark
 - conftest.py
 - TestSettingsEnvOverride
@@ -110,7 +110,7 @@
 - 1. Video Management
 - 4. Learning Modes
 - Technical Constraints
-- Settings
+- config.py
 - test_config.py
 - opencode.json
 - graphify reference: add a URL and watch a folder
@@ -126,7 +126,7 @@
 - graphify reference: transcribe video and audio
 - db/__init__.py
 - app/__init__.py
-- .validate_youtube_url
+- create_video_from_youtube
 - .test_settings_has_default_model
 - .test_settings_chunk_duration
 - .test_settings_environment
@@ -139,6 +139,20 @@
 - extraction-spec.md
 - tests/unit/__init__.py
 - english-learning-backend
+- TestDownloadVideo
+- T
+- env.py
+- AI Tutor Chat Streaming Spec
+- ChunkingService
+- ChunkingConfig
+- frontend_config
+- VideoChunk
+- ChunkingError
+- Chat Streaming Fix Implementation Plan
+- migrate_vocabulary
+- init_db.py
+- TestSpeakingServiceInitialization
+- .dict
 
 ## God Nodes (most connected - your core abstractions)
 1. `VideoService` - 40 edges
@@ -167,39 +181,39 @@
 ## Import Cycles
 - None detected.
 
-## Communities (141 total, 20 thin omitted)
+## Communities (155 total, 20 thin omitted)
 
 ### Community 0 - "Base"
-Cohesion: 0.05
-Nodes (50): ABC, AsyncAttrs, do_run_migrations(), Alembic environment configuration., Run migrations in 'offline' mode., Run actual migrations., Run migrations in async mode., Run migrations in 'online' mode. (+42 more)
+Cohesion: 0.15
+Nodes (20): AsyncAttrs, Base, SQLAlchemy base class for all models., Base class for all SQLAlchemy models., Mixin to add created_at and updated_at timestamps., TimestampMixin, Chunk of a video with sentence-snapped boundaries., VideoChunk (+12 more)
 
 ### Community 1 - "VideoService"
-Cohesion: 0.06
-Nodes (45): Base exception for video processing errors with checkpoint info., VideoProcessingError, ProcessingTimings, Path, UUID, Video, VideoChunk, Process video through full pipeline with checkpoint-resume. Pipeline steps: 1.… (+37 more)
+Cohesion: 0.08
+Nodes (26): ProcessingTimings, Path, UUID, Video, VideoChunk, Process video through full pipeline with checkpoint-resume. Pipeline steps: 1.…, Retry processing from last checkpoint. Args: video_id: UUID of video to retry…, Update video status and optionally set error_message. (+18 more)
 
 ### Community 2 - "DownloadService"
-Cohesion: 0.05
-Nodes (36): DownloadService, Path, Get video metadata without downloading. Args: youtube_url: Full YouTube URL…, Synchronous info extraction using yt-dlp. Note on YouTube subtitles: -…, Service for downloading YouTube videos using yt-dlp., Download video and subtitles from YouTube URL. Args: youtube_url: Full YouTube…, Synchronous download using yt-dlp. Downloads video and both author-uploaded and…, DownloadError (+28 more)
+Cohesion: 0.12
+Nodes (13): DownloadService, Path, Get video metadata without downloading. Args: youtube_url: Full YouTube URL…, Synchronous info extraction using yt-dlp. Note on YouTube subtitles: -…, Service for downloading YouTube videos using yt-dlp., Download video and subtitles from YouTube URL. Args: youtube_url: Full YouTube…, Synchronous download using yt-dlp. Downloads video and both author-uploaded and…, download_service() (+5 more)
 
-### Community 3 - "ChunkingService"
-Cohesion: 0.07
-Nodes (37): ChunkingConfig, ChunkingService, Hybrid Dynamic chunking service with ±30s sentence boundary snap., Configuration for Hybrid Dynamic chunking., Create ideal chunks without sentence snap (fallback when no transcript)., A virtual video chunk with sentence-snapped timestamps., Hybrid Dynamic chunking with sentence-aware boundaries. Algorithm: 1. Calculate…, Check if text ends with sentence-ending punctuation. (+29 more)
+### Community 3 - "test_chunking_service.py"
+Cohesion: 0.18
+Nodes (11): chunking_service(), fixture, ChunkingService should have default search window of 30s., _ends_with_sentence should detect sentence endings., Should find sentence boundary within ±30s window., Should return target time if no boundary in window., sample_transcript(), test_chunking_service_initialization() (+3 more)
 
 ### Community 4 - "Design Specifications & Coding Guidelines"
 Cohesion: 0.04
 Nodes (45): 1. Input Validation, 1. Repository Pattern (Backend), 1. Strict Type Safety, 1. Type Hints (Mandatory), 2. Async/Await (ALL I/O Operations), 2. Service Layer Pattern (Async), 2. Vue 3.5 Best Practices, 3. CORS Configuration (+37 more)
 
 ### Community 5 - "video_service.py"
-Cohesion: 0.08
-Nodes (33): Application configuration using Pydantic settings., get_logger(), Get a logger instance with the standard format. Args: name: Logger name…, Chat service for AI tutor functionality., YouTube video download service using yt-dlp., Custom exceptions for video processing pipeline., Raised when transcription fails., Raised when study plan generation fails. (+25 more)
+Cohesion: 0.09
+Nodes (29): get_logger(), Get a logger instance with the standard format. Args: name: Logger name…, YouTube video download service using yt-dlp., DownloadError, Custom exceptions for video processing pipeline., Raised when video download fails., Raised when transcription fails., Raised when study plan generation fails. (+21 more)
 
 ### Community 6 - "English Speaking Learning App - System Architecture"
 Cohesion: 0.05
 Nodes (41): 1. Download Service, 1. Repository Pattern, 2. Chunking Service (Hybrid Dynamic), 2. Service Layer Pattern, 3. State Machine Pattern, 3. Transcription Service, 4. Video Service (Orchestrator), API Reference (+33 more)
 
 ### Community 7 - "videos.py"
-Cohesion: 0.10
-Nodes (40): create_video_from_youtube(), get_chunk_audio(), get_progress(), get_study_plan_by_chunk(), get_video(), get_video_chunks(), get_video_info(), get_video_study_plans() (+32 more)
+Cohesion: 0.12
+Nodes (32): delete_video(), get_chunk_audio(), get_progress(), get_video(), get_video_chunks(), get_video_transcript(), list_videos(), AsyncSession (+24 more)
 
 ### Community 8 - "ShadowingMode.vue"
 Cohesion: 0.06
@@ -231,7 +245,7 @@ Nodes (28): compilerOptions, allowImportingTsExtensions, baseUrl, isolatedModule
 
 ### Community 15 - "TranscriptionService"
 Cohesion: 0.11
-Nodes (16): Path, Extract speaker label if present (e.g., 'John: Hello')., Lazy load the Whisper model., Transcribe audio file with word-level timestamps. Args: audio_path: Path to…, Orchestrates dual transcription. 1. Always runs Whisper transcription 2. Also…, Parse subtitle file and return list of entries. Args: subtitle_path: Path to…, Get YouTube subtitle transcript if available. Args: video_path: Path to video…, Transcribe video audio using Whisper. Args: video_path: Path to video file… (+8 more)
+Nodes (17): Path, Extract speaker label if present (e.g., 'John: Hello')., Service for transcribing audio using faster-whisper., Initialize Whisper model. Model sizes: tiny, base, small, medium, large-v3 CPU-…, Lazy load the Whisper model., Transcribe audio file with word-level timestamps. Args: audio_path: Path to…, Orchestrates dual transcription. 1. Always runs Whisper transcription 2. Also…, Parse subtitle file and return list of entries. Args: subtitle_path: Path to… (+9 more)
 
 ### Community 16 - "Video Processing Skill"
 Cohesion: 0.07
@@ -242,8 +256,8 @@ Cohesion: 0.09
 Nodes (22): useAuth(), chunkDuration, chunkDurationOptions, closeAddModal(), createVideoFromYouTube(), dashboardStats, error, fetchDashboardStats() (+14 more)
 
 ### Community 18 - "schemas/video.py"
-Cohesion: 0.11
-Nodes (25): Retry video processing from last checkpoint. Use this endpoint if a previous…, retry_video_processing(), ProcessingTimings, BaseModel, Enum, str, Video and VideoChunk schemas., Elapsed time metrics for video processing stages. (+17 more)
+Cohesion: 0.12
+Nodes (23): ProcessingTimings, BaseModel, Enum, str, Video and VideoChunk schemas., Elapsed time metrics for video processing stages., Video processing state machine states., Complete video response with all data. (+15 more)
 
 ### Community 19 - "English Speaking Learning App - Project Presentation"
 Cohesion: 0.08
@@ -281,16 +295,16 @@ Nodes (13): get_log_level(), Get log level from environment variable or provided
 Cohesion: 0.09
 Nodes (21): API Documentation, API Endpoints, Chat (`/api/v1/chat`), Chunks & Audio, Data Storage, Development, Docker, English Learning Backend (+13 more)
 
-### Community 29 - "endpoints/chat.py"
-Cohesion: 0.16
-Nodes (11): get_db(), AsyncSession, Dependencies for API endpoints., Get database session for dependency injection. Commits on success. Endpoints…, Chat endpoints for AI tutor functionality., LLM status and health endpoints., Migration endpoint to populate vocabularies table from existing study plans., Statistics endpoints. (+3 more)
+### Community 29 - "endpoints/stats.py"
+Cohesion: 0.24
+Nodes (7): get_db(), AsyncSession, Dependencies for API endpoints., Get database session for dependency injection. Commits on success. Endpoints…, Statistics endpoints., DashboardStats, BaseModel
 
 ### Community 30 - "patch"
 Cohesion: 0.16
 Nodes (12): is_verbose(), Check if verbose mode is enabled via environment variable., Should add file handler when LOG_DIR is set., Tests for is_verbose function., Should return True for 'true'., Should return True for '1'., Should return True for 'yes'., Should return False for 'false'. (+4 more)
 
 ### Community 31 - "video.service.ts"
-Cohesion: 0.17
+Cohesion: 0.15
 Nodes (16): ChatMessage, StreamChatOptions, StudyPlanResponse, TranscriptResponse, VideoResponse, videoService, GrammarItem, StudyObjective (+8 more)
 
 ### Community 32 - "LLM Task Skill"
@@ -298,28 +312,28 @@ Cohesion: 0.11
 Nodes (17): API Endpoints, Architecture, Chat with Teacher, Dependencies, Description, Environment Variables, GPU Auto-Detection, Guidelines (+9 more)
 
 ### Community 33 - "endpoints/vocabulary.py"
-Cohesion: 0.17
-Nodes (17): FavoriteListResponse, FavoriteWord, get_favorite_vocabulary(), get_reviewed_vocabulary(), get_vocabulary(), AsyncSession, BaseModel, get (+9 more)
+Cohesion: 0.07
+Nodes (38): FavoriteListResponse, FavoriteWord, get_favorite_vocabulary(), get_reviewed_vocabulary(), get_vocabulary(), AsyncSession, BaseModel, get (+30 more)
 
 ### Community 34 - "useI18n.ts"
 Cohesion: 0.18
 Nodes (11): { t }, videoStore, languageStore, isLearningPage, languageStore, route, { t }, useI18n() (+3 more)
 
-### Community 35 - "StudyProgress"
-Cohesion: 0.15
-Nodes (12): Update video playback progress (chunk index and timestamp)., update_progress(), Progress tracking for video chunks., StudyProgress, ProgressRepository, AsyncSession, UUID, Repository for StudyProgress model. (+4 more)
+### Community 35 - "ProgressRepository"
+Cohesion: 0.21
+Nodes (8): ProgressRepository, AsyncSession, UUID, Repository for StudyProgress model., Get progress for a specific video chunk., Get all progress for a video., Get list of completed chunk indices for a video., StudyProgress
 
-### Community 36 - "VocabularyRepository"
-Cohesion: 0.15
-Nodes (10): AsyncSession, Repository for Vocabulary model., Get vocabulary by word., Get vocabulary items due for review., Get vocabulary by CEFR level., Search vocabulary by word prefix., Get all words that have been reviewed at least once., Get all favorite vocabulary items. (+2 more)
+### Community 36 - "MockVideo"
+Cohesion: 0.13
+Nodes (13): MockVideo, asyncio, process_video should raise VideoProcessingError if video not found., Mock Video model for testing., process_video should set error_message on failure., process_video should return (video, timings) if video already ready., Tests for retry_video., retry_video should return immediately if video is ready. (+5 more)
 
-### Community 37 - "asyncio"
-Cohesion: 0.12
-Nodes (12): asyncio, create_chunks should raise ChunkingError for invalid duration., create_chunks should raise ChunkingError for zero duration., create_chunks should use ideal chunks when transcript is empty., _create_ideal_chunks should create correct chunk count., Last chunk should be shorter if video doesn't divide evenly., Should create chunks with Hybrid Dynamic sentence-snap., Chunk duration should be user-adjustable. (+4 more)
+### Community 37 - "TestCreateChunksEdgeCases"
+Cohesion: 0.10
+Nodes (17): asyncio, Tests for edge cases in create_chunks., create_chunks should raise ChunkingError for invalid duration., create_chunks should raise ChunkingError for zero duration., create_chunks should use ideal chunks when transcript is empty., _create_ideal_chunks should create correct chunk count., Last chunk should be shorter if video doesn't divide evenly., create_chunks should use custom ChunkingConfig. (+9 more)
 
 ### Community 38 - "asyncio"
-Cohesion: 0.13
-Nodes (12): asyncio, Tests for save_recording method., save_recording should create file with audio data., save_recording should create parent directories if needed., Tests for extract_audio_segment method., extract_audio_segment should raise ValueError on FFmpeg failure., extract_audio_segment should use custom output path if provided., Tests for compare_recordings method. (+4 more)
+Cohesion: 0.15
+Nodes (10): asyncio, Tests for save_recording method., save_recording should create file with audio data., save_recording should create parent directories if needed., Tests for extract_audio_segment method., extract_audio_segment should raise ValueError on FFmpeg failure., extract_audio_segment should use custom output path if provided., compare_recordings should calculate similarity between transcriptions. (+2 more)
 
 ### Community 39 - "Study Statistics Implementation Plan"
 Cohesion: 0.12
@@ -330,8 +344,8 @@ Cohesion: 0.12
 Nodes (15): API Endpoints, Dependencies, Description, Environment Variables, Exam Generation with LLM, Exam Submission and Scoring, Exam System Skill, Guidelines (+7 more)
 
 ### Community 41 - "main.py"
-Cohesion: 0.17
-Nodes (15): _ensure_data_directories(), _ensure_database(), frontend_config(), health_check(), lifespan(), get, FastAPI application entry point., Return runtime config for frontend. (+7 more)
+Cohesion: 0.22
+Nodes (9): LLM status and health endpoints., _ensure_data_directories(), _ensure_database(), lifespan(), FastAPI application entry point., Ensure all data storage directories exist., Ensure database exists and has tables created via SQLAlchemy., Application lifespan context manager for startup/shutdown events. (+1 more)
 
 ### Community 42 - "StudyPlanRepository"
 Cohesion: 0.18
@@ -341,9 +355,9 @@ Nodes (10): AsyncSession, UUID, Repository for StudyPlan model., Get study plan 
 Cohesion: 0.18
 Nodes (9): Path, Calculate simple text similarity between two strings. Uses word overlap ratio…, Compare user's recording with original using Whisper. Args:…, Service for speaking practice with audio comparison., Generate feedback based on comparison. Args: original_text: Original transcript…, Save user's recording to disk. Args: audio_data: Raw audio bytes (WebM/Opus)…, Extract audio segment from video for a specific time range. Args: video_path:…, Transcribe audio file using Whisper. Args: audio_path: Path to audio file… (+1 more)
 
-### Community 44 - "StatsService"
-Cohesion: 0.17
-Nodes (9): AsyncSession, Count completed study chunks (proxy for sentences practiced)., Calculate total minutes studied today., Service for calculating dashboard statistics., Calculate dashboard statistics from study progress. Args: daily_goal_minutes:…, Count vocabulary items that have been reviewed at least once., Calculate total hours learned from all progress records., Calculate consecutive days with study activity. (+1 more)
+### Community 44 - "StudyProgress"
+Cohesion: 0.12
+Nodes (12): Progress tracking for video chunks., StudyProgress, AsyncSession, Statistics service for calculating user learning metrics., Count completed study chunks (proxy for sentences practiced)., Calculate total minutes studied today., Service for calculating dashboard statistics., Calculate dashboard statistics from study progress. Args: daily_goal_minutes:… (+4 more)
 
 ### Community 45 - "TestModuleLevelConstants"
 Cohesion: 0.12
@@ -354,8 +368,8 @@ Cohesion: 0.12
 Nodes (9): Tests for Settings class., Settings should have LLM_GPU_LAYERS., Settings should have LLM_CONTEXT_SIZE., Settings should have LLM_THREADS as positive int., Settings should have YOUTUBE_DOWNLOAD_QUALITY., Settings should have YOUTUBE_AUDIO_QUALITY., Settings should have DEBUG defaulting to True., Settings should have LOG_LEVEL defaulting to INFO. (+1 more)
 
 ### Community 47 - "StudyPlanDisplay.vue"
-Cohesion: 0.12
-Nodes (12): activeTab, completedVocabulary, emit, GrammarItem, grammarItems, progress, Props, StudyObjective (+4 more)
+Cohesion: 0.10
+Nodes (15): Props, sizeClasses, variantClasses, activeTab, completedVocabulary, emit, GrammarItem, grammarItems (+7 more)
 
 ### Community 48 - "devDependencies"
 Cohesion: 0.13
@@ -369,16 +383,16 @@ Nodes (15): axios, clsx, dependencies, axios, clsx, pinia, tailwindcss, vue (+7 
 Cohesion: 0.21
 Nodes (14): compare_recording(), get_audio_segment(), get_speaking_service(), get_video_segments(), AsyncSession, get, post, UUID (+6 more)
 
-### Community 51 - "VideoRepository"
-Cohesion: 0.16
-Nodes (11): delete_video(), Delete a video and all associated files., AsyncSession, UUID, Video, Repository for Video model., Get video with its chunks., Get video by YouTube URL. (+3 more)
+### Community 51 - ".get_with_chunks"
+Cohesion: 0.29
+Nodes (5): UUID, Video, Get video with its chunks., Get video by YouTube URL., Update video status and optionally error_message.
 
 ### Community 52 - "logging.py"
 Cohesion: 0.18
 Nodes (12): _get_handlers(), LogLevel, Enum, str, Centralized logging configuration for the application., Log level enumeration matching standard logging levels., Get logging handlers based on environment. Args: level: The logging level…, Tests for logging module. (+4 more)
 
 ### Community 53 - "ChunkRepository"
-Cohesion: 0.17
+Cohesion: 0.19
 Nodes (9): ChunkRepository, AsyncSession, UUID, VideoChunk, Repository for VideoChunk model., Get all chunks for a video., Get a specific chunk by video ID and index., Delete all chunks for a video and return count. (+1 more)
 
 ### Community 54 - "SQLite3 Migration Implementation Plan"
@@ -390,7 +404,7 @@ Cohesion: 0.14
 Nodes (14): Agent Skills Available, Architecture, Backend, Directory Structure, English Speaking Learning App - Agent Instructions, Frontend, Key Design Patterns, LLM Configuration (+6 more)
 
 ### Community 56 - "TranscriptRepository"
-Cohesion: 0.21
+Cohesion: 0.19
 Nodes (9): AsyncSession, UUID, Repository for Transcript model., Get a single transcript for a video (first one found)., Get all transcripts for a video., Get transcript by video ID and source., Create a transcript for a video., TranscriptRepository (+1 more)
 
 ### Community 57 - "TestCalculateSimilarity"
@@ -417,9 +431,9 @@ Nodes (13): Checkpoint-Resume, Docker, Documentation, English Speaking Learning 
 Cohesion: 0.21
 Nodes (8): Configure application-wide logging. Args: log_level: Log level string (default:…, setup_logging(), Should use DEBUG_FORMAT when verbose is True., Should use DEFAULT_FORMAT when verbose is False., Should use explicit log_level over env var., Should set httpx and urllib3 to WARNING., Tests for setup_logging function., TestSetupLogging
 
-### Community 63 - "schemas/vocabulary.py"
-Cohesion: 0.23
-Nodes (11): BaseModel, Base vocabulary schema., Schema for updating vocabulary., Vocabulary response schema., Schema for reviewing vocabulary with SM-2 algorithm., Paginated vocabulary list response., Vocabulary, VocabularyBase (+3 more)
+### Community 63 - "SubtitleService"
+Cohesion: 0.16
+Nodes (15): Service for parsing subtitle files (SRT, VTT, ASS, SSA)., SubtitleService, asyncio, fixture, TranscriptionService should raise TranscriptionError if all methods fail., SubtitleService should parse SRT format., SubtitleService should extract speaker labels., TranscriptionService should try YouTube subtitles first. (+7 more)
 
 ### Community 64 - "VocabularyCard.vue"
 Cohesion: 0.20
@@ -429,17 +443,17 @@ Nodes (9): cardBorderClass, cefrColor, emit, isFlipped, isPlaying, playAudio(), 
 Cohesion: 0.18
 Nodes (10): Coding Patterns, Dependencies, Description, Example: Dependency Injection, Example: Service Layer, FastAPI Skill, Guidelines, Project Structure (+2 more)
 
-### Community 66 - "chat"
-Cohesion: 0.20
-Nodes (10): chat(), AsyncSession, post, Streaming chat endpoint for AI tutor (SSE). Streams tokens as they are…, ChatMessage, BaseModel, Chat schemas for AI tutor interface., Request for streaming chat. (+2 more)
+### Community 66 - "endpoints/chat.py"
+Cohesion: 0.19
+Nodes (11): chat(), AsyncSession, post, Chat endpoints for AI tutor functionality., Streaming chat endpoint for AI tutor (SSE). Streams tokens as they are…, ChatMessage, BaseModel, Chat schemas for AI tutor interface. (+3 more)
 
-### Community 67 - "Vocabulary"
-Cohesion: 0.18
-Nodes (8): migrate_vocabulary(), AsyncSession, post, Migrate vocabulary items from study_plans.vocabulary JSON to vocabularies…, Vocabulary item for spaced repetition learning., Vocabulary, Vocabulary repository., Statistics service for calculating user learning metrics.
+### Community 67 - "BaseRepository"
+Cohesion: 0.17
+Nodes (12): ABC, Migration endpoint to populate vocabularies table from existing study plans., Vocabulary item for spaced repetition learning., Vocabulary, BaseRepository, Base repository with common CRUD operations., Base repository with CRUD operations., Video chunk repository. (+4 more)
 
 ### Community 68 - "test_speaking_service.py"
-Cohesion: 0.18
-Nodes (8): Speaking practice service for character impersonation mode., fixture, Tests for SpeakingService., Create SpeakingService with temp directory., Tests for SpeakingService initialization., SpeakingService should create recordings directory., speaking_service(), TestSpeakingServiceInitialization
+Cohesion: 0.29
+Nodes (6): fixture, Tests for SpeakingService., Create SpeakingService with temp directory., Tests for compare_recordings method., speaking_service(), TestCompareRecordings
 
 ### Community 69 - "schemas/transcript.py"
 Cohesion: 0.27
@@ -469,9 +483,9 @@ Nodes (8): get_db(), init_sqlite_pragmas(), log_query(), Database session manage
 Cohesion: 0.25
 Nodes (5): ChatService, Cleanup model resources., Service for chat-based LLM interactions (AI tutor)., Lazy load the llama-cpp-python model., Generate a streaming chat response. Args: messages: List of message dicts with…
 
-### Community 76 - "BaseButton.vue"
-Cohesion: 0.25
-Nodes (6): Props, sizeClasses, variantClasses, emit, onInput(), Props
+### Community 76 - "BaseInput.vue"
+Cohesion: 0.50
+Nodes (3): emit, onInput(), Props
 
 ### Community 77 - "graphify reference: extra exports and benchmark"
 Cohesion: 0.22
@@ -549,9 +563,9 @@ Nodes (5): 4.1 Reading Mode, 4.2 Listening Mode, 4.3 Speaking Mode (Shadowing), 
 Cohesion: 0.40
 Nodes (5): LLM Constraints, Performance Constraints, Storage Constraints, Technical Constraints, Video Constraints
 
-### Community 96 - "Settings"
-Cohesion: 0.50
-Nodes (4): Config, Application settings loaded from environment variables., Settings, BaseSettings
+### Community 96 - "config.py"
+Cohesion: 0.17
+Nodes (9): Config, Application configuration using Pydantic settings., Application settings loaded from environment variables., Settings, Chat service for AI tutor functionality., Speaking practice service for character impersonation mode., get_llama_config(), Get llama-cpp-python configuration. (+1 more)
 
 ### Community 98 - "opencode.json"
 Cohesion: 0.50
@@ -585,20 +599,76 @@ Nodes (4): A. FFmpeg Commands, Appendix, B. Docker Compose Services, C. Environm
 Cohesion: 0.67
 Nodes (3): Coding Standards, Python, TypeScript
 
+### Community 112 - "create_video_from_youtube"
+Cohesion: 0.13
+Nodes (19): create_video_from_youtube(), get_study_plan_by_chunk(), get_video_info(), get_video_study_plans(), get, post, Get metadata of a video from YouTube URL without DB operations., Create video from YouTube URL and process through full pipeline. This endpoint:… (+11 more)
+
+### Community 141 - "TestDownloadVideo"
+Cohesion: 0.15
+Nodes (11): asyncio, get_video_info should return video metadata without downloading., get_video_info should return defaults if extraction fails., Tests for download_video method., download_video should return video info dict on success., download_video should raise DownloadError if file doesn't exist after download., download_video should raise DownloadError when sync download fails., Tests for get_video_info method. (+3 more)
+
+### Community 142 - "T"
+Cohesion: 0.18
+Nodes (7): Any, AsyncSession, Get all entities with pagination., Update an existing entity., Delete an entity by ID., Save an entity (create or update)., T
+
+### Community 143 - "env.py"
+Cohesion: 0.22
+Nodes (10): do_run_migrations(), Alembic environment configuration., Run migrations in 'offline' mode., Run actual migrations., Run migrations in async mode., Run migrations in 'online' mode., run_async_migrations(), run_migrations_offline() (+2 more)
+
+### Community 144 - "AI Tutor Chat Streaming Spec"
+Cohesion: 0.18
+Nodes (10): 1. Problem, 2. Current Architecture, 3. Root Cause, 4. Target Behavior, 5. Fix, 6. Non-Goals, 7. Verification, AI Tutor Chat Streaming Spec (+2 more)
+
+### Community 145 - "ChunkingService"
+Cohesion: 0.27
+Nodes (6): ChunkingService, Create ideal chunks without sentence snap (fallback when no transcript)., Hybrid Dynamic chunking with sentence-aware boundaries. Algorithm: 1. Calculate…, Check if text ends with sentence-ending punctuation., Find nearest sentence boundary within ±30s of target_time. Args: target_time:…, Create chunks with Hybrid Dynamic sentence-snap. Args: video_duration: Total…
+
+### Community 146 - "ChunkingConfig"
+Cohesion: 0.28
+Nodes (6): ChunkingConfig, Configuration for Hybrid Dynamic chunking., Tests for ChunkingConfig dataclass., ChunkingConfig should have correct default values., ChunkingConfig should accept custom values., TestChunkingConfig
+
+### Community 147 - "frontend_config"
+Cohesion: 0.29
+Nodes (8): frontend_config(), health_check(), get, Return runtime config for frontend., Serve frontend index.html for SPA routes, or static files if they exist., Health check endpoint., serve_spa_or_static(), Request
+
+### Community 148 - "VideoChunk"
+Cohesion: 0.32
+Nodes (6): A virtual video chunk with sentence-snapped timestamps., VideoChunk, Tests for VideoChunk dataclass., VideoChunk should store chunk data correctly., VideoChunk duration should be end - start., TestVideoChunk
+
+### Community 149 - "ChunkingError"
+Cohesion: 0.33
+Nodes (5): Hybrid Dynamic chunking service with ±30s sentence boundary snap., ChunkingError, Raised when video chunking fails., ChunkingError should store message accessible via .message attribute., test_chunking_error_message()
+
+### Community 150 - "Chat Streaming Fix Implementation Plan"
+Cohesion: 0.40
+Nodes (4): Chat Streaming Fix Implementation Plan, Global Constraints, Self-Review, Task 1: Mutate the assistant message through the reactive proxy
+
+### Community 151 - "migrate_vocabulary"
+Cohesion: 0.50
+Nodes (4): migrate_vocabulary(), AsyncSession, post, Migrate vocabulary items from study_plans.vocabulary JSON to vocabularies…
+
+### Community 152 - "init_db.py"
+Cohesion: 0.50
+Nodes (3): init_db(), Database initialization script for creating tables., Initialize database with all tables.
+
+### Community 153 - "TestSpeakingServiceInitialization"
+Cohesion: 0.50
+Nodes (3): Tests for SpeakingService initialization., SpeakingService should create recordings directory., TestSpeakingServiceInitialization
+
 ## Knowledge Gaps
-- **633 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `Config`, `english-learning-backend`, `name` (+628 more)
+- **642 isolated node(s):** `Config`, `english-learning-backend`, `name`, `private`, `version` (+637 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `VideoService` connect `VideoService` to `Base`, `DownloadService`, `ChunkingService`, `video_service.py`, `videos.py`, `TranscriptionService`, `schemas/video.py`, `ChunkRepository`, `LLMService`?**
-  _High betweenness centrality (0.022) - this node is a cross-community bridge._
-- **Why does `SpeakingService` connect `SpeakingService` to `test_speaking_service.py`, `asyncio`, `TestGenerateFeedback`, `endpoints/speaking.py`, `TestCalculateSimilarity`?**
-  _High betweenness centrality (0.022) - this node is a cross-community bridge._
-- **Why does `TestModuleLevelConstants` connect `TestModuleLevelConstants` to `test_config.py`?**
-  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+- **Why does `VideoService` connect `VideoService` to `Base`, `DownloadService`, `MockVideo`, `video_service.py`, `videos.py`, `TranscriptionService`, `create_video_from_youtube`, `ChunkingService`, `ChunkingError`, `TranscriptRepository`, `LLMService`?**
+  _High betweenness centrality (0.024) - this node is a cross-community bridge._
+- **Why does `SpeakingService` connect `SpeakingService` to `config.py`, `TestSpeakingServiceInitialization`, `test_speaking_service.py`, `asyncio`, `TestGenerateFeedback`, `endpoints/speaking.py`, `TestCalculateSimilarity`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Why does `TestSettings` connect `TestSettings` to `test_config.py`, `.test_settings_chunk_duration`, `.test_settings_environment`, `.test_settings_has_default_model`?**
+  _High betweenness centrality (0.020) - this node is a cross-community bridge._
 - **Are the 16 inferred relationships involving `VideoService` (e.g. with `VideoChunk` and `Video`) actually correct?**
   _`VideoService` has 16 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 16 inferred relationships involving `ProcessingTimings` (e.g. with `VideoChunk` and `Video`) actually correct?**
