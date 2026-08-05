@@ -89,6 +89,8 @@ dev = [
 extra-index-url = [
     # NVIDIA GPU support (CUDA 12.5)
     "https://abetlen.github.io/llama-cpp-python/whl/cu125",
+    # NVIDIA GPU support (CUDA 13.0)
+    # "https://abetlen.github.io/llama-cpp-python/whl/cu130",
     # AMD GPU support
     # "https://abetlen.github.io/llama-cpp-python/whl/rocm62",
 ]

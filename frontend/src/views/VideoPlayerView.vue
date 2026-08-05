@@ -10,6 +10,7 @@ import VideoPlayer from '@/components/video/VideoPlayer.vue';
 import StudyPlanDisplay from '@/components/learning/StudyPlanDisplay.vue';
 import VocabularyCard from '@/components/learning/VocabularyCard.vue';
 import ShadowingMode from '@/components/learning/ShadowingMode.vue';
+import MarkdownText from '@/components/common/MarkdownText.vue';
 import type { TranscriptSegment } from '@/types';
 
 const route = useRoute();
@@ -577,7 +578,8 @@ onMounted(() => {
                               ? 'bg-learning-accent-primary text-white'
                               : 'bg-learning-bg-primary text-learning-text-primary'"
                           >
-                            {{ msg.content }}
+                            <MarkdownText v-if="msg.role === 'assistant'" :content="msg.content" />
+                            <template v-else>{{ msg.content }}</template>
                             <span v-if="msg.role === 'assistant' && isStreamingChat && index === chatMessages.length - 1" class="inline-block w-2 h-2 bg-learning-accent-tertiary/50 rounded-full ml-1 animate-pulse" />
                           </div>
                         </div>
