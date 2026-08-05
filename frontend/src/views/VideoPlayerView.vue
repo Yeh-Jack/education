@@ -258,8 +258,8 @@ async function sendChatMessage() {
   isStreamingChat.value = true;
   scrollChatToBottom();
 
-  const assistantMessage: ChatMessage = { role: 'assistant', content: '' };
-  chatMessages.value.push(assistantMessage);
+  const assistantIndex = chatMessages.value.length;
+  chatMessages.value.push({ role: 'assistant', content: '' });
 
   try {
     await streamChat({
@@ -267,7 +267,7 @@ async function sendChatMessage() {
       messages: chatMessages.value.slice(0, -1),
       onToken: (token, done) => {
         if (!done) {
-          assistantMessage.content += token;
+          chatMessages.value[assistantIndex].content += token;
           scrollChatToBottom();
         }
       },
